@@ -16,7 +16,6 @@ import {
   Rocket,
   AlertTriangle,
   CheckCircle2,
-  XCircle,
   Target,
   Store,
   ShoppingBasket,
@@ -807,24 +806,26 @@ const SlideDecliners = () => {
 
         <div className="md:col-span-2 flex flex-col gap-3 lg:gap-4 justify-center">
           <p className="text-[10px] lg:text-xs font-black text-slate-400 uppercase tracking-wide text-right">
-            قراءتان محتملتان
+            القراءة والخطوة
           </p>
           {readings.map((r) => (
             <div
               key={r.title}
               className={`p-4 lg:p-6 rounded-2xl border-2 text-right ${
-                r.positive ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'
+                r.positive
+                  ? 'bg-emerald-50 border-emerald-200'
+                  : 'bg-brand-blue/5 border-brand-blue/15'
               }`}
             >
               <div className="flex items-center gap-2 lg:gap-2.5 mb-1.5 lg:mb-2">
                 {r.positive ? (
                   <CheckCircle2 size={17} className="text-emerald-500" strokeWidth={2.5} />
                 ) : (
-                  <XCircle size={17} className="text-rose-500" strokeWidth={2.5} />
+                  <Target size={17} className="text-brand-blue" strokeWidth={2.5} />
                 )}
                 <p
                   className={`text-xs lg:text-lg font-black ${
-                    r.positive ? 'text-emerald-800' : 'text-rose-800'
+                    r.positive ? 'text-emerald-800' : 'text-brand-blue'
                   }`}
                 >
                   {r.title}
@@ -832,7 +833,7 @@ const SlideDecliners = () => {
               </div>
               <p
                 className={`text-[11px] lg:text-sm font-bold leading-relaxed ${
-                  r.positive ? 'text-emerald-700' : 'text-rose-700'
+                  r.positive ? 'text-emerald-700' : 'text-brand-blue/80'
                 }`}
               >
                 {r.desc}

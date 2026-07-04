@@ -138,11 +138,11 @@ export const CONTENT = {
     ],
     more: "+ 3 أصناف أخرى (London Cake، Ice Caramel Macchiato، Caramel Latte)",
     takeaway:
-      "نمو يونيو لم يأتِ من الأصناف القائمة فقط — الإطلاقات الجديدة أضافت مبيعات حقيقية.",
+      "نمو يونيو لم يأتِ من الأصناف الحالية فقط — الإطلاقات الجديدة أضافت مبيعات حقيقية.",
   },
 
   decliners: {
-    title: "الأصناف المتراجعة — بصراحة",
+    title: "الأصناف المتراجعة",
     subtitle: "",
     items: [
       { name: "Delivery 100", may: "31,300", june: "3,800", delta: "-87.9%" },

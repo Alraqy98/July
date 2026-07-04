@@ -530,7 +530,7 @@ const SlideDays = () => {
 /* ---------------------------------- Offer --------------------------------- */
 
 const SlideOffer = () => {
-  const { title, subtitle, compare, juneNote, tickets, takeaway } = CONTENT.offer;
+  const { title, subtitle, compare, tickets, takeaway } = CONTENT.offer;
 
   return (
     <div className="presentation-slide flex flex-col">
@@ -538,7 +538,7 @@ const SlideOffer = () => {
       <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 content-center min-h-0">
         <div className="flex flex-col gap-3 lg:gap-4 justify-center">
           <p className="text-[10px] lg:text-xs font-black text-slate-400 uppercase tracking-wide text-right">
-            حجم العرض — مايو مقابل يونيو
+            إيراد العرض — مايو مقابل يونيو
           </p>
           {compare.map((c, i) => (
             <div
@@ -561,31 +561,33 @@ const SlideOffer = () => {
                   {c.period}
                 </p>
               </div>
-              <p
-                className={`text-2xl lg:text-4xl font-black leading-none mb-2 ${
-                  i === 1 ? 'text-white' : 'text-brand-blue'
-                }`}
-              >
-                {c.revenue}
-              </p>
-              <div className="flex gap-4">
-                <span
-                  className={`text-xs lg:text-sm font-bold ${
-                    i === 1 ? 'text-white/80' : 'text-slate-500'
+              <div className="flex items-center justify-between gap-3">
+                <p
+                  className={`text-2xl lg:text-4xl font-black leading-none ${
+                    i === 1 ? 'text-white' : 'text-brand-blue'
                   }`}
                 >
-                  {c.receipts}
-                </span>
-                <span
-                  className={`text-xs lg:text-sm font-bold ${
-                    i === 1 ? 'text-white/80' : 'text-slate-500'
-                  }`}
-                >
-                  {c.units}
-                </span>
+                  {c.revenue}
+                </p>
+                {c.delta ? (
+                  <span className="px-2.5 lg:px-3 py-1 lg:py-1.5 rounded-full bg-amber-400 text-brand-blue text-xs lg:text-base font-black shadow-sm shrink-0">
+                    {c.delta}
+                  </span>
+                ) : null}
               </div>
-              {i === 1 ? (
-                <p className="mt-2.5 text-[10px] lg:text-xs font-bold text-white/60">{juneNote}</p>
+              {c.details.length > 0 ? (
+                <div className="flex gap-4 mt-2">
+                  {c.details.map((d) => (
+                    <span
+                      key={d}
+                      className={`text-xs lg:text-sm font-bold ${
+                        i === 1 ? 'text-white/80' : 'text-slate-500'
+                      }`}
+                    >
+                      {d}
+                    </span>
+                  ))}
+                </div>
               ) : null}
             </div>
           ))}

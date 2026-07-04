@@ -77,10 +77,9 @@ export const CONTENT = {
     title: "عرض كأس العالم 299",
     subtitle: "ترويج يبني السلة ولا يأكل الهامش",
     compare: [
-      { period: "مايو", revenue: "27,600 TL", receipts: "56 فاتورة", units: "92 قطعة" },
-      { period: "يونيو", revenue: "58,368 TL", receipts: "181 فاتورة", units: "252 قطعة" },
+      { period: "مايو — Offer 299", revenue: "27,600 TL", details: ["56 فاتورة", "92 قطعة"], delta: null },
+      { period: "يونيو — Offer 299 Croissant", revenue: "42,900 TL", details: [], delta: "+55.4%" },
     ],
-    juneNote: "يشمل Offer 299 Croissant (42,900) + Free offer donuts (15,168)",
     tickets: {
       offer: { label: "متوسط فاتورة تتضمن العرض", value: "~519 TL" },
       normal: { label: "متوسط الفاتورة العادية", value: "~414 TL" },
@@ -128,16 +127,16 @@ export const CONTENT = {
   newItems: {
     title: "أصناف أُطلقت في يونيو",
     subtitle: "الإطلاقات الجديدة صنعت طلبًا حقيقيًا",
-    impact: { value: "~141,000 TL", share: "≈ 8.7% من إيراد يونيو", label: "مساهمة الأصناف الجديدة مجتمعة" },
+    impact: { value: "~126,000 TL", share: "≈ 7.8% من إيراد يونيو", label: "مساهمة الأصناف الجديدة مجتمعة" },
     items: [
       { name: "Offer 299 Croissant", value: "42,900" },
-      { name: "Free offer donuts", value: "15,168" },
       { name: "Caramel Mille-Feuille", value: "13,625" },
       { name: "Mini Cookies Cup", value: "12,920" },
       { name: "Arabic Coffee", value: "12,700" },
       { name: "Pepeion Croissant", value: "9,828" },
+      { name: "Mojito Çilek", value: "8,280" },
     ],
-    more: "+ 4 أصناف أخرى (Mojito Çilek، London Cake، Ice Caramel Macchiato، Caramel Latte)",
+    more: "+ 3 أصناف أخرى (London Cake، Ice Caramel Macchiato، Caramel Latte)",
     takeaway:
       "القائمة لم تُدافَع عنها فحسب — بل توسّعت بإطلاقات منتجة أضافت مبيعات ملموسة.",
   },

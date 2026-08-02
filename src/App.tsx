@@ -628,7 +628,7 @@ const SlideOffer = () => {
           </div>
         </div>
       </div>
-      <Takeaway text={takeaway} tone="amber" />
+      <Takeaway text={takeaway} tone="emerald" />
     </div>
   );
 };

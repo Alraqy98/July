@@ -12,9 +12,9 @@ export const CONTENT = {
     badges: ["يونيو 2026", "يوليو 2026"],
     consultant: "محمد ابوعيسى",
     highlights: [
-      { value: "+22%", label: "الإيراد" },
-      { value: "+14%", label: "الفواتير" },
-      { value: "+18%", label: "الإيراد اليومي" },
+      { value: "+24%", label: "الإيراد" },
+      { value: "+15%", label: "الفواتير" },
+      { value: "+20%", label: "الإيراد اليومي" },
     ],
   },
 
@@ -22,12 +22,12 @@ export const CONTENT = {
     title: "الأداء العام",
     subtitle: "",
     cards: [
-      { label: "إجمالي الإيراد", prev: "1,486,027", current: "1,817,684", unit: "TL", delta: "+22%", trend: "up" as Trend, good: true },
-      { label: "عدد الفواتير", prev: "3,644", current: "4,168", unit: "فاتورة", delta: "+14%", trend: "up" as Trend, good: true },
-      { label: "متوسط الإيراد اليومي", prev: "49,534", current: "58,635", unit: "TL", delta: "+18%", trend: "up" as Trend, good: true },
-      { label: "إجمالي الخصومات", prev: "157,028", current: "268,901", unit: "TL", delta: "+71%", trend: "up" as Trend, good: false },
-      { label: "نسبة الخصم", prev: "~10%", current: "13%", unit: "", delta: "+3 نقاط", trend: "up" as Trend, good: false },
-      { label: "متوسط الفاتورة", prev: "408", current: "436", unit: "TL", delta: "+7%", trend: "up" as Trend, good: true },
+      { label: "إجمالي الإيراد", prev: "1,470,224", current: "1,824,871", unit: "TL", delta: "+24%", trend: "up" as Trend, good: true },
+      { label: "عدد الفواتير", prev: "3,545", current: "4,068", unit: "فاتورة", delta: "+15%", trend: "up" as Trend, good: true },
+      { label: "متوسط الإيراد اليومي", prev: "49,007", current: "58,867", unit: "TL", delta: "+20%", trend: "up" as Trend, good: true },
+      { label: "خصومات العروض الفعلية", prev: "44,848", current: "139,533", unit: "TL", delta: "×3", trend: "up" as Trend, good: false },
+      { label: "هدر نهاية اليوم (شطب)", prev: "112,180", current: "130,835", unit: "TL", delta: "+17%", trend: "up" as Trend, good: false },
+      { label: "متوسط الفاتورة", prev: "414.7", current: "448.6", unit: "TL", delta: "+8%", trend: "up" as Trend, good: true },
     ],
   },
 
@@ -39,8 +39,8 @@ export const CONTENT = {
       { name: "الصباح", range: "حتى 12:00", prev: 383684, current: 404358, delta: "+5%", highlight: false },
       { name: "الظهيرة", range: "12:00–15:00", prev: 336452, current: 483169, delta: "+44%", highlight: true },
       { name: "بعد الظهر", range: "15:00–18:00", prev: 258332, current: 353219, delta: "+37%", highlight: false },
-      { name: "المساء", range: "18:00–20:00", prev: 180521, current: 214168, delta: "+19%", highlight: false },
-      { name: "الليل", range: "20:00–24:00", prev: 327038, current: 362770, delta: "+11%", highlight: false },
+      { name: "المساء", range: "18:00–20:00", prev: 180521, current: 215798, delta: "+20%", highlight: false },
+      { name: "الليل", range: "20:00–24:00", prev: 327038, current: 380318, delta: "+16%", highlight: false },
     ],
     hoursLabel: "أقوى ساعات يوليو",
     hours: [
@@ -48,10 +48,10 @@ export const CONTENT = {
       { hour: "11:00", value: "159.4k", night: false },
       { hour: "13:00", value: "144.8k", night: false },
       { hour: "14:00", value: "144.0k", night: false },
-      { hour: "16:00", value: "130.0k", night: false },
+      { hour: "21:00", value: "131.2k", night: true },
     ],
     takeaway:
-      "في يونيو كان الليل هو البطل — في يوليو انتقل الزخم إلى منتصف النهار: الظهيرة قفزت +44% وبعد الظهر +37%، وكل الساعات الأقوى أصبحت بين 11:00 و16:00.",
+      "في يونيو كان الليل هو البطل — في يوليو انتقل الزخم إلى منتصف النهار: الظهيرة قفزت +44% وبعد الظهر +37%، وأربع من أقوى خمس ساعات أصبحت بين 11:00 و14:00.",
   },
 
   days: {
@@ -63,12 +63,12 @@ export const CONTENT = {
       { name: "الثلاثاء", prev: 251556, current: 245873, delta: "-2%", good: false },
       { name: "الأربعاء", prev: 195945, current: 284812, delta: "+45%", good: true },
       { name: "الخميس", prev: 201561, current: 311739, delta: "+55%", good: true },
-      { name: "الجمعة", prev: 207254, current: 268662, delta: "+30%", good: true },
+      { name: "الجمعة", prev: 207254, current: 287839, delta: "+39%", good: true },
       { name: "السبت", prev: 190760, current: 243374, delta: "+28%", good: true },
       { name: "الأحد", prev: 187820, current: 231866, delta: "+23%", good: true },
     ],
     takeaway:
-      "أهم إنجاز الشهر: نهاية الأسبوع عادت للنمو (+28% سبت، +23% أحد) بعد أن كانت أكبر نقطة ضعف في يونيو. تراجع الاثنين والثلاثاء الطفيف يعود جزئيًا للتقويم — يونيو تضمّن خمسة من كلٍّ منهما مقابل أربعة في يوليو.",
+      "أهم إنجاز الشهر: نهاية الأسبوع عادت للنمو بعد أن كانت أكبر نقطة ضعف في يونيو — وتراجع الاثنين والثلاثاء الطفيف يعود جزئيًا للتقويم لا للأداء.",
   },
 
   offer: {
@@ -76,47 +76,47 @@ export const CONTENT = {
     subtitle: "انطلق في 15 يوليو: اشترِ اليوم بالسعر الكامل وعُد غدًا بفاتورتك لتحصل على 50% على نفس الأصناف",
     compare: [
       { period: "قبل الإطلاق — 1 إلى 14 يوليو", revenue: "53,325 TL/يوم", details: ["الإيراد اليومي المتوسط"], delta: null },
-      { period: "بعد الإطلاق — 15 إلى 31 يوليو", revenue: "64,851 TL/يوم", details: ["147 استردادًا", "~9 يوميًا"], delta: "+22%" },
+      { period: "بعد الإطلاق — 15 إلى 31 يوليو", revenue: "64,136 TL/يوم", details: ["150 استردادًا", "~9 يوميًا"], delta: "+20%" },
     ],
     tickets: {
-      offer: { label: "متوسط سلة الاسترداد (قبل الخصم)", value: "~555 TL" },
-      normal: { label: "متوسط الفاتورة العادية", value: "~436 TL" },
+      offer: { label: "متوسط سلة الاسترداد (قبل الخصم)", value: "~553 TL" },
+      normal: { label: "متوسط الفاتورة العادية", value: "~449 TL" },
     },
     takeaway:
-      "منذ إطلاقه: 147 استردادًا (~9 يوميًا) بكلفة ~41 ألف ليرة، وسلال الاسترداد أكبر بنحو 27% من العادية — ويتزامن الإطلاق مع قفزة الإيراد اليومي +22%. سؤال أغسطس: كم من هذه الزيارات كانت ستحدث بدون العرض؟",
+      "منذ إطلاقه: 150 استردادًا (~9 يوميًا) بكلفة ~41 ألف ليرة، وسلال الاسترداد أكبر بنحو 23% من العادية — ويتزامن الإطلاق مع قفزة الإيراد اليومي +20%. سؤال أغسطس: كم من هذه الزيارات كانت ستحدث بدون العرض؟",
   },
 
   singles: {
     title: "فواتير الصنف الواحد",
     subtitle: "ما تزال أكبر فرصة تحسين في التقرير",
     stats: [
-      { label: "عدد الفواتير", prev: "1,560", current: "1,754", delta: "+12%" },
-      { label: "الإيراد", prev: "292,796 TL", current: "331,611 TL", delta: "+13%" },
-      { label: "متوسط الفاتورة", prev: "187.7 TL", current: "189.1 TL", delta: "+1%" },
+      { label: "عدد الفواتير", prev: "1,635", current: "1,894", delta: "+16%" },
+      { label: "الإيراد", prev: "321,896 TL", current: "380,004 TL", delta: "+18%" },
+      { label: "متوسط الفاتورة", prev: "196.9 TL", current: "200.6 TL", delta: "+2%" },
     ],
     topLabel: "الأكثر شراءً كصنف وحيد",
     topItems: [
-      { name: "Ice Spanish Latte", count: 163 },
-      { name: "Water premium", count: 160 },
-      { name: "Habiscus Juice", count: 106 },
+      { name: "Ice Spanish Latte", count: 166 },
+      { name: "Water premium", count: 162 },
+      { name: "Offer 299 Croissant", count: 125 },
+      { name: "Habiscus Juice", count: 107 },
       { name: "Ice Latte", count: 93 },
-      { name: "Çay bardak", count: 91 },
     ],
     takeaway:
-      "نحو 42% من فواتير يوليو ما تزال بصنف واحد فقط — أوضح مسار لنموّ غني بالهامش: Upselling منهجي يبدأ بمشتري المشروبات الباردة والماء والشاي.",
+      "نحو 45% من فواتير يوليو ما تزال بصنف واحد فقط — أوضح مسار لنموّ غني بالهامش: Upselling منهجي يبدأ بمشتري المشروبات الباردة والماء والشاي.",
   },
 
   winners: {
     title: "محركات النمو — أبرز الرابحين",
     subtitle: "معجنات التوت والتشيزكيك تقود — وقناة تجزئة جديدة تولد",
-    max: 84028,
+    max: 84588,
     items: [
-      { name: "Danish tut Berries", current: 84028, prev: "68,594", delta: "+22%" },
-      { name: "Danish çilek", current: 78361, prev: "58,548", delta: "+34%" },
+      { name: "Danish tut Berries", current: 84588, prev: "68,594", delta: "+23%" },
+      { name: "Danish çilek", current: 78921, prev: "58,548", delta: "+35%" },
+      { name: "San Sebastian + Cheesecake", current: 48125, prev: "28,204", delta: "+71%" },
       { name: "قهوة التجزئة 250g (فلتر + إسبريسو)", current: 48030, prev: "~1,000", delta: "جديد" },
-      { name: "San Sebastian + Cheesecake", current: 47575, prev: "28,204", delta: "+69%" },
-      { name: "Ice Americano", current: 29174, prev: "15,080", delta: "+93%" },
-      { name: "London Cake", current: 27730, prev: "7,200", delta: "+285%" },
+      { name: "Ice Americano", current: 29319, prev: "15,080", delta: "+94%" },
+      { name: "London Cake", current: 27980, prev: "7,200", delta: "+289%" },
     ],
     takeaway:
       "أبرز مفاجآت الشهر: بيع البن للمنازل انطلق من لا شيء تقريبًا إلى ~48 ألف ليرة — قناة دخل جديدة تستحق رفًا أوضح ودفعة تسويقية.",
@@ -144,9 +144,9 @@ export const CONTENT = {
     subtitle: "",
     items: [
       { name: "Lotus Roll Croissant", prev: "32,368", current: "20,854", delta: "-36%" },
-      { name: "Spanish Latte (ساخن)", prev: "18,685", current: "14,782", delta: "-21%" },
+      { name: "Spanish Latte (ساخن)", prev: "18,685", current: "15,522", delta: "-17%" },
       { name: "V60 (Colombian)", prev: "42,100", current: "34,750", delta: "-17%" },
-      { name: "Çay bardak", prev: "30,355", current: "25,585", delta: "-16%" },
+      { name: "Çay bardak", prev: "30,355", current: "25,685", delta: "-15%" },
       { name: "Chocolate Roll", prev: "41,882", current: "37,066", delta: "-11%" },
       { name: "Halloum Croissant", prev: "31,410", current: "28,728", delta: "-9%" },
     ],
@@ -169,8 +169,8 @@ export const CONTENT = {
     subtitle: "تثبيت الزخم وضبط الهامش",
     items: [
       {
-        title: "انضباط الخصومات",
-        desc: "نمت أسرع من الإيراد بوضوح — تفكيك مصادرها ووضع قواعد وسقف واضح لكل عرض.",
+        title: "انضباط الخصومات وخفض الهدر",
+        desc: "خصومات العروض تضاعفت ~3 مرات مع إطلاق عرض الـ 50%، والهدر الليلي (~4,200 TL/ليلة من مخبوزات غير مباعة) يستحق ضبط إنتاج المساء.",
       },
       {
         title: "تحويل فواتير الصنف الواحد",
@@ -195,10 +195,10 @@ export const CONTENT = {
     title: "الخلاصة للإدارة",
     subtitle: "يوليو واصل الصعود — وغيّر شكل يومه وأسبوعه للأفضل",
     stats: [
-      { value: "+22%", label: "الإيراد" },
-      { value: "+18%", label: "الإنتاجية اليومية" },
-      { value: "+14%", label: "الفواتير" },
-      { value: "+7%", label: "متوسط الفاتورة" },
+      { value: "+24%", label: "الإيراد" },
+      { value: "+20%", label: "الإنتاجية اليومية" },
+      { value: "+15%", label: "الفواتير" },
+      { value: "+8%", label: "متوسط الفاتورة" },
     ],
     achieved:
       "الإيراد نما بقوة، نهاية الأسبوع استُعيدت بعد أن كانت أكبر نقطة ضعف، منتصف النهار أصبح المحرك الرئيسي، متوسط الفاتورة والسلة ارتفعا، وفُتحت قناة دخل جديدة في التجزئة المنزلية.",

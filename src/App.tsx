@@ -178,6 +178,17 @@ function SlideHeader({ title, subtitle }: { title: string; subtitle?: string }) 
 
 function DeltaBadge({ delta, good }: { delta: string; good: boolean }) {
   const up = delta.startsWith('+') || delta === 'جديد';
+  if (!up && !delta.startsWith('-')) {
+    return (
+      <span
+        className={`inline-flex items-center gap-1 px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-full text-[10px] lg:text-sm font-black shrink-0 ${
+          good ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'
+        }`}
+      >
+        {delta}
+      </span>
+    );
+  }
   return (
     <span
       className={`inline-flex items-center gap-1 px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-full text-[10px] lg:text-sm font-black shrink-0 ${
@@ -472,52 +483,56 @@ const SlideDays = () => {
   return (
     <div className="presentation-slide flex flex-col">
       <SlideHeader title={title} subtitle={subtitle} />
-      <div className="flex-1 flex flex-col gap-1.5 lg:gap-2.5 justify-center min-h-0">
-        {items.map((day) => (
-          <div
-            key={day.name}
-            className="flex items-center gap-3 lg:gap-4 px-2.5 py-1.5 lg:p-3 bg-white rounded-xl border border-slate-100 shadow-sm text-right"
-          >
-            <span className="w-14 lg:w-20 text-xs lg:text-base font-black text-brand-blue shrink-0">
-              {day.name}
-            </span>
-            <div className="flex-1 flex flex-col gap-1">
-              <div className="h-1.5 lg:h-2.5 rounded-full bg-slate-100 overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-slate-300"
-                  style={{ width: `${(day.prev / max) * 100}%` }}
-                />
-              </div>
-              <div className="h-2 lg:h-3 rounded-full bg-slate-100 overflow-hidden">
-                <div
-                  className={`h-full rounded-full ${day.good ? 'bg-emerald-500' : 'bg-rose-400'}`}
-                  style={{ width: `${(day.current / max) * 100}%` }}
-                />
-              </div>
-            </div>
-            <div className="w-20 lg:w-32 flex flex-col items-start shrink-0 leading-tight">
-              <span className="text-[9px] lg:text-xs font-bold text-slate-400">
-                {fmt(day.prev)}
+      <div className="flex-1 flex flex-col justify-center min-h-0 gap-2 lg:gap-3">
+        <div className="flex items-center gap-4 justify-end">
+          <span className="flex items-center gap-1.5 text-[9px] lg:text-xs font-bold text-slate-400">
+            <span className="w-4 h-1.5 rounded-full bg-slate-300" /> يونيو
+          </span>
+          <span className="flex items-center gap-1.5 text-[9px] lg:text-xs font-bold text-slate-500">
+            <span className="w-4 h-1.5 rounded-full bg-emerald-500" /> يوليو (نموّ)
+          </span>
+          <span className="flex items-center gap-1.5 text-[9px] lg:text-xs font-bold text-slate-500">
+            <span className="w-4 h-1.5 rounded-full bg-rose-400" /> يوليو (تراجع)
+          </span>
+        </div>
+        <div className="bg-white rounded-2xl border-2 border-slate-100 shadow-sm px-3 lg:px-5 py-1 lg:py-1.5">
+          {items.map((day, i) => (
+            <div
+              key={day.name}
+              className={`flex items-center gap-3 lg:gap-4 py-1.5 lg:py-2 text-right ${
+                i < items.length - 1 ? 'border-b border-slate-100' : ''
+              }`}
+            >
+              <span className="w-14 lg:w-20 text-[11px] lg:text-sm font-black text-brand-blue shrink-0">
+                {day.name}
               </span>
-              <span className="text-[11px] lg:text-base font-black text-brand-blue">
-                {fmt(day.current)}
-              </span>
+              <div className="flex-1 flex flex-col gap-0.5 lg:gap-1 min-w-0">
+                <div className="h-1 lg:h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-slate-300"
+                    style={{ width: `${(day.prev / max) * 100}%` }}
+                  />
+                </div>
+                <div className="h-1.5 lg:h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${day.good ? 'bg-emerald-500' : 'bg-rose-400'}`}
+                    style={{ width: `${(day.current / max) * 100}%` }}
+                  />
+                </div>
+              </div>
+              <div className="w-20 lg:w-28 flex items-baseline gap-1.5 lg:gap-2 shrink-0 justify-start">
+                <span className="text-[11px] lg:text-sm font-black text-brand-blue">
+                  {fmt(day.current)}
+                </span>
+                <span className="text-[8px] lg:text-[10px] font-bold text-slate-400">
+                  {fmt(day.prev)}
+                </span>
+              </div>
+              <div className="w-14 lg:w-20 flex justify-start shrink-0">
+                <DeltaBadge delta={day.delta} good={day.good} />
+              </div>
             </div>
-            <div className="w-18 lg:w-24 flex justify-start shrink-0">
-              <DeltaBadge delta={day.delta} good={day.good} />
-            </div>
-          </div>
-        ))}
-        <div className="flex items-center gap-4 justify-end pt-0.5">
-          <span className="flex items-center gap-1.5 text-[10px] lg:text-xs font-bold text-slate-400">
-            <span className="w-4 h-2 rounded-full bg-slate-300" /> يونيو
-          </span>
-          <span className="flex items-center gap-1.5 text-[10px] lg:text-xs font-bold text-slate-500">
-            <span className="w-4 h-2 rounded-full bg-emerald-500" /> يوليو (نموّ)
-          </span>
-          <span className="flex items-center gap-1.5 text-[10px] lg:text-xs font-bold text-slate-500">
-            <span className="w-4 h-2 rounded-full bg-rose-400" /> يوليو (تراجع)
-          </span>
+          ))}
         </div>
       </div>
       <Takeaway text={takeaway} tone="emerald" />

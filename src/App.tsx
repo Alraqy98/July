@@ -308,7 +308,7 @@ const SlideHero = () => {
 const KPI_ICONS = [Store, Receipt, CalendarDays, BadgePercent, Scale, ShoppingBasket];
 
 const SlideKpis = () => {
-  const { title, subtitle, cards, caution } = CONTENT.kpis;
+  const { title, subtitle, cards } = CONTENT.kpis;
 
   return (
     <div className="presentation-slide flex flex-col">
@@ -349,7 +349,6 @@ const SlideKpis = () => {
           );
         })}
       </div>
-      <Takeaway text={caution} tone="amber" />
     </div>
   );
 };
@@ -537,7 +536,7 @@ const SlideOffer = () => {
       <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 content-center min-h-0">
         <div className="flex flex-col gap-3 lg:gap-4 justify-center">
           <p className="text-[10px] lg:text-xs font-black text-slate-400 uppercase tracking-wide text-right">
-            إيراد العرض — يونيو مقابل يوليو
+            الإيراد اليومي — قبل الإطلاق وبعده
           </p>
           {compare.map((c, i) => (
             <div

@@ -10,7 +10,7 @@ export const CONTENT = {
     brand: "تقرير مبيعات يوليو 2026",
     subtitle: "أداء يوليو مقارنة بيونيو: نموّ قوي يقوده منتصف النهار ونهاية الأسبوع",
     badges: ["يونيو 2026", "يوليو 2026"],
-    consultant: "محمد ابوعيسى",
+    consultant: "د. محمد ابوعيسى",
     highlights: [
       { value: "+24%", label: "الإيراد" },
       { value: "+15%", label: "الفواتير" },
@@ -205,6 +205,6 @@ export const CONTENT = {
   thanks: {
     title: "شكراً لكم",
     subtitle: "نتطلع معًا إلى المزيد والمزيد من النجاح",
-    contact: "محمد ابوعيسى",
+    contact: "د. محمد ابوعيسى",
   },
 };

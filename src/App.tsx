@@ -779,7 +779,9 @@ const SlideNewItems = () => {
           ))}
         </div>
 
-        <p className="text-[10px] lg:text-sm font-bold text-slate-400 text-right">{more}</p>
+        {more ? (
+          <p className="text-[10px] lg:text-sm font-bold text-slate-400 text-right">{more}</p>
+        ) : null}
       </div>
       <Takeaway text={takeaway} tone="amber" />
     </div>

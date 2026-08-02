@@ -6,10 +6,14 @@ import {
   ArrowDownRight,
   TrendingUp,
   Sparkles,
+  Moon,
+  Clock,
   CalendarDays,
   Trophy,
   Receipt,
+  Coffee,
   CupSoda,
+  Rocket,
   AlertTriangle,
   CheckCircle2,
   Target,
@@ -17,25 +21,19 @@ import {
   ShoppingBasket,
   BadgePercent,
   Scale,
-  Users,
-  Building2,
-  Croissant,
-  Layers,
-  Repeat,
-  Sun,
 } from 'lucide-react';
 import { CONTENT } from './constants';
 
 const SLIDES = [
   'hero',
   'kpis',
-  'trend',
-  'staff',
+  'time',
+  'days',
   'offer',
-  'campaign',
-  'b2b',
-  'top',
-  'mechanics',
+  'singles',
+  'winners',
+  'newItems',
+  'decliners',
   'actions',
   'conclusion',
   'thanks',
@@ -139,20 +137,20 @@ function renderSlide(index: number) {
       return <SlideHero />;
     case 'kpis':
       return <SlideKpis />;
-    case 'trend':
-      return <SlideTrend />;
-    case 'staff':
-      return <SlideStaff />;
+    case 'time':
+      return <SlideTime />;
+    case 'days':
+      return <SlideDays />;
     case 'offer':
       return <SlideOffer />;
-    case 'campaign':
-      return <SlideCampaign />;
-    case 'b2b':
-      return <SlideB2B />;
-    case 'top':
-      return <SlideTop />;
-    case 'mechanics':
-      return <SlideMechanics />;
+    case 'singles':
+      return <SlideSingles />;
+    case 'winners':
+      return <SlideWinners />;
+    case 'newItems':
+      return <SlideNewItems />;
+    case 'decliners':
+      return <SlideDecliners />;
     case 'actions':
       return <SlideActions />;
     case 'conclusion':
@@ -179,18 +177,7 @@ function SlideHeader({ title, subtitle }: { title: string; subtitle?: string }) 
 }
 
 function DeltaBadge({ delta, good }: { delta: string; good: boolean }) {
-  const up = delta.startsWith('+');
-  const down = delta.startsWith('-');
-  const neutral = !up && !down && delta !== 'جديد';
-
-  if (neutral) {
-    return (
-      <span className="inline-flex items-center gap-1 px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-full text-[10px] lg:text-sm font-black shrink-0 bg-slate-100 text-slate-500">
-        {delta}
-      </span>
-    );
-  }
-
+  const up = delta.startsWith('+') || delta === 'جديد';
   return (
     <span
       className={`inline-flex items-center gap-1 px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-full text-[10px] lg:text-sm font-black shrink-0 ${
@@ -281,7 +268,7 @@ const SlideHero = () => {
           </div>
 
           <p className="text-sm lg:text-base font-black tracking-widest text-amber-500 uppercase mb-3">
-            Bakery Box — Kayaşehir
+            Bakery Box
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-brand-blue tracking-tight leading-tight mb-5">
             {brand}
@@ -318,7 +305,7 @@ const SlideHero = () => {
 
 /* ---------------------------------- KPIs ---------------------------------- */
 
-const KPI_ICONS = [Store, Receipt, CalendarDays, ShoppingBasket, Scale, BadgePercent];
+const KPI_ICONS = [Store, Receipt, CalendarDays, BadgePercent, Scale, ShoppingBasket];
 
 const SlideKpis = () => {
   const { title, subtitle, cards, caution } = CONTENT.kpis;
@@ -356,7 +343,7 @@ const SlideKpis = () => {
                 ) : null}
               </p>
               <p className="mt-1.5 text-[11px] lg:text-xs font-bold text-slate-400">
-                يونيو: {card.prev} {card.prev !== '—' ? card.unit : ''}
+                يونيو: {card.prev} {card.unit}
               </p>
             </div>
           );
@@ -367,87 +354,109 @@ const SlideKpis = () => {
   );
 };
 
-/* -------------------------- Trend (pace + weekdays) ------------------------ */
+/* ----------------------------- Time (slots + hours) ----------------------- */
 
-const SlideTrend = () => {
-  const { title, subtitle, pace, paceMax, extremes, daysLabel, days, daysMax, takeaway } =
-    CONTENT.trend;
+const SlideTime = () => {
+  const { title, subtitle, max, slots, hoursLabel, hours, takeaway } = CONTENT.time;
 
   return (
     <div className="presentation-slide flex flex-col">
       <SlideHeader title={title} subtitle={subtitle} />
       <div className="flex-1 flex flex-col justify-center min-h-0 gap-3 lg:gap-4">
-        <div className="bg-white rounded-2xl border-2 border-slate-100 shadow-sm px-4 lg:px-6 py-3 lg:py-4">
-          {pace.map((p, i) => (
+        <div className="bg-white rounded-2xl border-2 border-slate-100 shadow-sm px-3 lg:px-6 py-1.5 lg:py-2.5">
+          <div className="flex items-center justify-between py-1.5 lg:py-2 border-b border-slate-100">
+            <div className="flex items-center gap-4">
+              <span className="flex items-center gap-1.5 text-[10px] lg:text-xs font-bold text-slate-400">
+                <span className="w-4 h-1.5 lg:h-2 rounded-full bg-slate-300" /> يونيو
+              </span>
+              <span className="flex items-center gap-1.5 text-[10px] lg:text-xs font-bold text-slate-500">
+                <span className="w-4 h-1.5 lg:h-2 rounded-full bg-brand-blue" /> يوليو
+              </span>
+            </div>
+            <span className="text-[10px] lg:text-xs font-black text-slate-400">
+              الإيراد بالليرة (TL)
+            </span>
+          </div>
+          {slots.map((slot, i) => (
             <div
-              key={p.name}
-              className={`flex items-center gap-3 lg:gap-5 py-2.5 lg:py-3.5 text-right ${
-                i < pace.length - 1 ? 'border-b border-slate-100' : ''
+              key={slot.name}
+              className={`flex items-center gap-3 lg:gap-5 py-2 lg:py-3.5 text-right ${
+                i < slots.length - 1 ? 'border-b border-slate-100' : ''
+              } ${slot.highlight ? 'bg-amber-50/80 -mx-3 lg:-mx-6 px-3 lg:px-6 rounded-b-2xl' : ''}`}
+            >
+              <div className="w-20 lg:w-28 shrink-0">
+                <div className="flex items-center gap-1.5">
+                  {slot.highlight ? (
+                    <Moon size={14} className="text-amber-500" strokeWidth={2.5} />
+                  ) : null}
+                  <span className="text-xs lg:text-base font-black text-brand-blue">
+                    {slot.name}
+                  </span>
+                </div>
+                <p className="text-[9px] lg:text-[11px] font-bold text-slate-400">{slot.range}</p>
+              </div>
+              <div className="flex-1 flex flex-col gap-1 lg:gap-1.5 min-w-0">
+                <div className="h-1.5 lg:h-2.5 rounded-full bg-slate-100 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-slate-300"
+                    style={{ width: `${(slot.prev / max) * 100}%` }}
+                  />
+                </div>
+                <div className="h-2 lg:h-3 rounded-full bg-slate-100 overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${
+                      slot.highlight
+                        ? 'bg-gradient-to-l from-amber-400 to-amber-500'
+                        : 'bg-brand-blue'
+                    }`}
+                    style={{ width: `${(slot.current / max) * 100}%` }}
+                  />
+                </div>
+              </div>
+              <div className="w-16 lg:w-24 shrink-0 flex flex-col items-start leading-tight">
+                <span className="text-[9px] lg:text-xs font-bold text-slate-400">
+                  {fmt(slot.prev)}
+                </span>
+                <span className="text-[11px] lg:text-base font-black text-brand-blue">
+                  {fmt(slot.current)}
+                </span>
+              </div>
+              <div className="w-16 lg:w-24 shrink-0 flex justify-start">
+                <span
+                  className={`px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-full text-[10px] lg:text-sm font-black ${
+                    slot.highlight
+                      ? 'bg-amber-400 text-brand-blue shadow-sm'
+                      : 'bg-emerald-100 text-emerald-700'
+                  }`}
+                >
+                  {slot.delta}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2 lg:gap-3 flex-wrap">
+          <span className="text-[10px] lg:text-sm font-black text-slate-400 ml-1">
+            {hoursLabel}:
+          </span>
+          {hours.map((h) => (
+            <span
+              key={h.hour}
+              className={`flex items-center gap-1.5 px-2.5 lg:px-3.5 py-1 lg:py-1.5 rounded-full text-[10px] lg:text-sm font-black ${
+                h.night
+                  ? 'bg-amber-100 text-amber-700 border border-amber-300'
+                  : 'bg-white text-brand-blue border border-slate-200'
               }`}
             >
-              <div className="w-28 lg:w-40 shrink-0">
-                <span className="text-xs lg:text-base font-black text-brand-blue block">
-                  {p.name}
-                </span>
-                <p className="text-[9px] lg:text-[11px] font-bold text-slate-400">{p.range}</p>
-              </div>
-              <div className="flex-1 h-3 lg:h-4 rounded-full bg-slate-100 overflow-hidden">
-                <div
-                  className={`h-full rounded-full ${
-                    p.delta ? 'bg-gradient-to-l from-emerald-400 to-emerald-600' : 'bg-slate-300'
-                  }`}
-                  style={{ width: `${(p.value / paceMax) * 100}%` }}
-                />
-              </div>
-              <span className="w-28 lg:w-36 shrink-0 text-[11px] lg:text-base font-black text-brand-blue">
-                {p.label}
-              </span>
-              <div className="w-16 lg:w-24 shrink-0 flex justify-start">
-                {p.delta ? <DeltaBadge delta={p.delta} good={true} /> : null}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-3 gap-3 lg:gap-4">
-          {extremes.map((e) => (
-            <div
-              key={e.label}
-              className="p-3 lg:p-5 bg-white rounded-2xl border-2 border-slate-100 shadow-sm text-right"
-            >
-              <p className="text-[10px] lg:text-xs font-bold text-slate-400 mb-1">{e.label}</p>
-              <p className="text-base lg:text-2xl font-black text-brand-blue leading-none mb-1">
-                {e.value}
-              </p>
-              <p className="text-[9px] lg:text-xs font-bold text-slate-400">{e.note}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="bg-white rounded-2xl border-2 border-slate-100 shadow-sm px-4 lg:px-6 py-2.5 lg:py-3.5">
-          <p className="text-[10px] lg:text-xs font-black text-slate-400 uppercase tracking-wide text-right mb-2">
-            {daysLabel}
-          </p>
-          {days.map((d) => (
-            <div key={d.name} className="flex items-center gap-3 lg:gap-4 py-1.5 lg:py-2 text-right">
-              <span className="w-28 lg:w-36 shrink-0 text-[11px] lg:text-sm font-black text-brand-blue flex items-center gap-1.5">
-                {!d.good ? <Sun size={13} className="text-rose-400" strokeWidth={2.5} /> : null}
-                {d.name}
-              </span>
-              <div className="flex-1 h-2 lg:h-3 rounded-full bg-slate-100 overflow-hidden">
-                <div
-                  className={`h-full rounded-full ${d.good ? 'bg-brand-blue' : 'bg-rose-400'}`}
-                  style={{ width: `${(d.value / daysMax) * 100}%` }}
-                />
-              </div>
-              <span
-                className={`w-20 lg:w-28 shrink-0 text-[10px] lg:text-sm font-black ${
-                  d.good ? 'text-slate-500' : 'text-rose-500'
-                }`}
-              >
-                {d.label}
-              </span>
-            </div>
+              {h.night ? (
+                <Moon size={12} strokeWidth={2.5} />
+              ) : (
+                <Clock size={12} strokeWidth={2.5} />
+              )}
+              {h.hour}
+              <span className={h.night ? 'text-amber-500' : 'text-slate-400'}>{h.value}</span>
+            </span>
           ))}
         </div>
       </div>
@@ -456,302 +465,390 @@ const SlideTrend = () => {
   );
 };
 
-/* ---------------------------------- Staff --------------------------------- */
+/* ---------------------------------- Days ---------------------------------- */
 
-const SlideStaff = () => {
-  const { title, subtitle, members, takeaway } = CONTENT.staff;
+const SlideDays = () => {
+  const { title, subtitle, max, items, takeaway } = CONTENT.days;
 
   return (
     <div className="presentation-slide flex flex-col">
       <SlideHeader title={title} subtitle={subtitle} />
-      <div className="flex-1 flex flex-col gap-4 lg:gap-6 justify-center min-h-0">
-        {members.map((m, i) => (
+      <div className="flex-1 flex flex-col gap-1.5 lg:gap-2.5 justify-center min-h-0">
+        {items.map((day) => (
           <div
-            key={m.name}
-            className={`p-5 lg:p-8 rounded-2xl border-2 shadow-sm text-right ${
-              i === 0 ? 'bg-brand-blue border-brand-blue text-white' : 'bg-white border-slate-100'
-            }`}
+            key={day.name}
+            className="flex items-center gap-3 lg:gap-4 px-2.5 py-1.5 lg:p-3 bg-white rounded-xl border border-slate-100 shadow-sm text-right"
           >
-            <div className="flex items-center justify-between mb-3 lg:mb-4">
-              <div className="flex items-center gap-3">
+            <span className="w-14 lg:w-20 text-xs lg:text-base font-black text-brand-blue shrink-0">
+              {day.name}
+            </span>
+            <div className="flex-1 flex flex-col gap-1">
+              <div className="h-1.5 lg:h-2.5 rounded-full bg-slate-100 overflow-hidden">
                 <div
-                  className={`w-11 h-11 lg:w-14 lg:h-14 rounded-xl flex items-center justify-center shrink-0 ${
-                    i === 0 ? 'bg-amber-400/20 text-amber-300' : 'bg-brand-blue/10 text-brand-blue'
-                  }`}
-                >
-                  <Users size={24} strokeWidth={2.25} />
-                </div>
-                <p
-                  className={`text-lg lg:text-2xl font-black ${
-                    i === 0 ? 'text-white' : 'text-brand-blue'
-                  }`}
-                >
-                  {m.name}
-                </p>
+                  className="h-full rounded-full bg-slate-300"
+                  style={{ width: `${(day.prev / max) * 100}%` }}
+                />
               </div>
-              <span
-                className={`px-3 lg:px-4 py-1 lg:py-1.5 rounded-full text-sm lg:text-lg font-black ${
-                  i === 0 ? 'bg-amber-400 text-brand-blue' : 'bg-slate-100 text-slate-500'
-                }`}
-              >
-                {m.share}%
+              <div className="h-2 lg:h-3 rounded-full bg-slate-100 overflow-hidden">
+                <div
+                  className={`h-full rounded-full ${day.good ? 'bg-emerald-500' : 'bg-rose-400'}`}
+                  style={{ width: `${(day.current / max) * 100}%` }}
+                />
+              </div>
+            </div>
+            <div className="w-20 lg:w-32 flex flex-col items-start shrink-0 leading-tight">
+              <span className="text-[9px] lg:text-xs font-bold text-slate-400">
+                {fmt(day.prev)}
+              </span>
+              <span className="text-[11px] lg:text-base font-black text-brand-blue">
+                {fmt(day.current)}
               </span>
             </div>
-            <p
-              className={`text-2xl lg:text-4xl font-black leading-none mb-3 lg:mb-4 ${
-                i === 0 ? 'text-white' : 'text-brand-blue'
-              }`}
-            >
-              {m.value}
-              <span
-                className={`text-sm lg:text-base font-bold mr-2 ${
-                  i === 0 ? 'text-white/70' : 'text-slate-400'
-                }`}
-              >
-                TL
-              </span>
-            </p>
-            <div
-              className={`h-2.5 lg:h-3.5 rounded-full overflow-hidden ${
-                i === 0 ? 'bg-white/15' : 'bg-slate-100'
-              }`}
-            >
-              <div
-                className={`h-full rounded-full ${
-                  i === 0 ? 'bg-gradient-to-l from-amber-300 to-amber-500' : 'bg-brand-blue/60'
-                }`}
-                style={{ width: `${m.share}%` }}
-              />
+            <div className="w-18 lg:w-24 flex justify-start shrink-0">
+              <DeltaBadge delta={day.delta} good={day.good} />
             </div>
           </div>
         ))}
-      </div>
-      <Takeaway text={takeaway} tone="amber" />
-    </div>
-  );
-};
-
-/* ------------------------ Offer 299 (WC completion) ------------------------ */
-
-const SlideOffer = () => {
-  const { title, subtitle, metrics, detail, takeaway } = CONTENT.offer;
-
-  return (
-    <div className="presentation-slide flex flex-col">
-      <SlideHeader title={title} subtitle={subtitle} />
-      <div className="flex-1 flex flex-col gap-4 lg:gap-5 justify-center min-h-0">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-5">
-          {metrics.map((m, i) => (
-            <div
-              key={m.label}
-              className={`flex flex-col p-4 lg:p-6 rounded-2xl border-2 shadow-sm text-right ${
-                i === 2 ? 'bg-brand-blue border-brand-blue' : 'bg-white border-slate-100'
-              }`}
-            >
-              <div className="flex items-center gap-2 mb-2 lg:mb-3">
-                <Croissant
-                  size={18}
-                  className={i === 2 ? 'text-amber-300' : 'text-amber-500'}
-                  strokeWidth={2.25}
-                />
-                <p
-                  className={`text-[11px] lg:text-sm font-bold ${
-                    i === 2 ? 'text-white/80' : 'text-slate-500'
-                  }`}
-                >
-                  {m.label}
-                </p>
-              </div>
-              <p
-                className={`text-lg lg:text-3xl font-black leading-none ${
-                  i === 2 ? 'text-white' : 'text-brand-blue'
-                }`}
-              >
-                {m.value}
-              </p>
-            </div>
-          ))}
+        <div className="flex items-center gap-4 justify-end pt-0.5">
+          <span className="flex items-center gap-1.5 text-[10px] lg:text-xs font-bold text-slate-400">
+            <span className="w-4 h-2 rounded-full bg-slate-300" /> يونيو
+          </span>
+          <span className="flex items-center gap-1.5 text-[10px] lg:text-xs font-bold text-slate-500">
+            <span className="w-4 h-2 rounded-full bg-emerald-500" /> يوليو (نموّ)
+          </span>
+          <span className="flex items-center gap-1.5 text-[10px] lg:text-xs font-bold text-slate-500">
+            <span className="w-4 h-2 rounded-full bg-rose-400" /> يوليو (تراجع)
+          </span>
         </div>
-        <p className="text-[11px] lg:text-sm font-bold text-slate-400 text-right">{detail}</p>
-      </div>
-      <Takeaway text={takeaway} tone="amber" />
-    </div>
-  );
-};
-
-/* ------------------------- 50% next-day campaign --------------------------- */
-
-const SlideCampaign = () => {
-  const { title, subtitle, metrics, logic, takeaway } = CONTENT.campaign;
-
-  return (
-    <div className="presentation-slide flex flex-col">
-      <SlideHeader title={title} subtitle={subtitle} />
-      <div className="flex-1 flex flex-col gap-4 lg:gap-5 justify-center min-h-0">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-5">
-          {metrics.map((m, i) => (
-            <div
-              key={m.label}
-              className={`flex flex-col p-4 lg:p-6 rounded-2xl border-2 shadow-sm text-right ${
-                i === 2 ? 'bg-rose-50/70 border-rose-200' : 'bg-white border-slate-100'
-              }`}
-            >
-              <div className="flex items-center gap-2 mb-2 lg:mb-3">
-                <Repeat
-                  size={18}
-                  className={i === 2 ? 'text-rose-500' : 'text-brand-blue'}
-                  strokeWidth={2.25}
-                />
-                <p className="text-[11px] lg:text-sm font-bold text-slate-500">{m.label}</p>
-              </div>
-              <p
-                className={`text-lg lg:text-3xl font-black leading-none ${
-                  i === 2 ? 'text-rose-600' : 'text-brand-blue'
-                }`}
-              >
-                {m.value}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex items-start gap-3 lg:gap-4 p-4 lg:p-5 rounded-2xl bg-brand-blue/5 border-2 border-brand-blue/10 text-right">
-          <Scale size={20} className="text-brand-blue shrink-0 mt-0.5" strokeWidth={2.25} />
-          <p className="text-[11px] lg:text-base font-bold text-brand-blue leading-relaxed">
-            {logic}
-          </p>
-        </div>
-      </div>
-      <Takeaway text={takeaway} tone="amber" />
-    </div>
-  );
-};
-
-/* ------------------------------ Ortaköy B2B -------------------------------- */
-
-const SlideB2B = () => {
-  const { title, subtitle, facts, recommendation } = CONTENT.b2b;
-
-  return (
-    <div className="presentation-slide flex flex-col">
-      <SlideHeader title={title} subtitle={subtitle} />
-      <div className="flex-1 flex flex-col gap-3 lg:gap-4 justify-center min-h-0">
-        {facts.map((f, i) => (
-          <div
-            key={i}
-            className="flex items-start gap-4 lg:gap-5 p-4 lg:p-6 bg-white rounded-2xl border-2 border-slate-100 shadow-sm text-right"
-          >
-            <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center shrink-0">
-              <Building2 size={22} strokeWidth={2.25} />
-            </div>
-            <p className="text-xs lg:text-lg font-bold text-slate-600 leading-relaxed">{f}</p>
-          </div>
-        ))}
-
-        <div className="flex items-start gap-4 p-4 lg:p-6 bg-brand-blue text-white rounded-2xl shadow-xl shadow-brand-blue/25 text-right">
-          <div className="w-11 h-11 lg:w-12 lg:h-12 rounded-xl bg-white/15 flex items-center justify-center shrink-0 mt-0.5">
-            <Target size={24} strokeWidth={2.25} />
-          </div>
-          <div>
-            <p className="text-xs lg:text-sm font-black text-amber-300 mb-1">التوصية</p>
-            <p className="text-sm lg:text-lg font-black leading-relaxed">{recommendation}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-/* ------------------------------ Top products ------------------------------- */
-
-const SlideTop = () => {
-  const { title, subtitle, max, items, takeaway } = CONTENT.top;
-
-  return (
-    <div className="presentation-slide flex flex-col">
-      <SlideHeader title={title} subtitle={subtitle} />
-      <div className="flex-1 flex flex-col gap-1.5 lg:gap-2 justify-center min-h-0">
-        {items.map((item) => (
-          <div
-            key={item.name}
-            className={`flex items-center gap-3 lg:gap-4 px-3 py-1.5 lg:px-4 lg:py-2 rounded-xl border shadow-sm text-right ${
-              item.rank <= 3
-                ? 'bg-amber-50/70 border-amber-200'
-                : 'bg-white border-slate-100'
-            }`}
-          >
-            <span
-              className={`w-7 h-7 lg:w-9 lg:h-9 rounded-lg flex items-center justify-center shrink-0 font-black text-xs lg:text-base ${
-                item.rank <= 3 ? 'bg-amber-400 text-brand-blue' : 'bg-slate-100 text-slate-500'
-              }`}
-            >
-              {item.rank}
-            </span>
-            <span className="w-44 lg:w-72 text-[11px] lg:text-sm font-black text-brand-blue leading-tight shrink-0">
-              {item.name}
-            </span>
-            <div className="flex-1 h-2 lg:h-3 rounded-full bg-slate-100 overflow-hidden">
-              <div
-                className="h-full rounded-full bg-gradient-to-l from-brand-orange to-brand-blue"
-                style={{ width: `${(item.revenue / max) * 100}%` }}
-              />
-            </div>
-            <span className="w-14 lg:w-20 shrink-0 text-[10px] lg:text-xs font-bold text-slate-400">
-              {item.qty} قطعة
-            </span>
-            <span className="w-20 lg:w-28 shrink-0 text-[11px] lg:text-base font-black text-brand-blue">
-              {fmt(item.revenue)} TL
-            </span>
-          </div>
-        ))}
       </div>
       <Takeaway text={takeaway} tone="emerald" />
     </div>
   );
 };
 
-/* --------------------------- Discount mechanics ---------------------------- */
+/* ---------------------------------- Offer --------------------------------- */
 
-const MECHANIC_ICONS = [Croissant, Repeat, Layers];
-
-const SlideMechanics = () => {
-  const { title, subtitle, layers, takeaway } = CONTENT.mechanics;
+const SlideOffer = () => {
+  const { title, subtitle, compare, tickets, takeaway } = CONTENT.offer;
 
   return (
     <div className="presentation-slide flex flex-col">
       <SlideHeader title={title} subtitle={subtitle} />
-      <div className="flex-1 flex flex-col gap-3 lg:gap-4 justify-center min-h-0">
-        {layers.map((layer, i) => {
-          const Icon = MECHANIC_ICONS[i] ?? BadgePercent;
-          return (
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 content-center min-h-0">
+        <div className="flex flex-col gap-3 lg:gap-4 justify-center">
+          <p className="text-[10px] lg:text-xs font-black text-slate-400 uppercase tracking-wide text-right">
+            إيراد العرض — يونيو مقابل يوليو
+          </p>
+          {compare.map((c, i) => (
             <div
-              key={layer.name}
-              className="flex items-center gap-4 lg:gap-5 p-4 lg:p-6 bg-white rounded-2xl border-2 border-slate-100 shadow-sm text-right"
+              key={c.period}
+              className={`p-4 lg:p-6 rounded-2xl border-2 shadow-sm text-right ${
+                i === 1 ? 'bg-brand-blue border-brand-blue text-white' : 'bg-white border-slate-100'
+              }`}
             >
-              <div className="w-11 h-11 lg:w-14 lg:h-14 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
-                <Icon size={24} strokeWidth={2.25} />
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm lg:text-lg font-black text-brand-blue mb-0.5">{layer.name}</p>
-                <p className="text-[11px] lg:text-sm font-semibold text-slate-500 leading-relaxed">
-                  {layer.detail}
+              <div className="flex items-center gap-2.5 mb-2">
+                <Trophy
+                  size={18}
+                  className={i === 1 ? 'text-amber-300' : 'text-slate-300'}
+                  strokeWidth={2.5}
+                />
+                <p
+                  className={`text-sm lg:text-base font-black ${
+                    i === 1 ? 'text-amber-300' : 'text-slate-500'
+                  }`}
+                >
+                  {c.period}
                 </p>
               </div>
-              <p className="text-base lg:text-2xl font-black text-brand-blue shrink-0">
-                {layer.value}
-              </p>
+              <div className="flex items-center justify-between gap-3">
+                <p
+                  className={`text-2xl lg:text-4xl font-black leading-none ${
+                    i === 1 ? 'text-white' : 'text-brand-blue'
+                  }`}
+                >
+                  {c.revenue}
+                </p>
+                {c.delta ? (
+                  <span className="px-2.5 lg:px-3 py-1 lg:py-1.5 rounded-full bg-amber-400 text-brand-blue text-xs lg:text-base font-black shadow-sm shrink-0">
+                    {c.delta}
+                  </span>
+                ) : null}
+              </div>
+              {c.details.length > 0 ? (
+                <div className="flex gap-4 mt-2">
+                  {c.details.map((d) => (
+                    <span
+                      key={d}
+                      className={`text-xs lg:text-sm font-bold ${
+                        i === 1 ? 'text-white/80' : 'text-slate-500'
+                      }`}
+                    >
+                      {d}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
             </div>
-          );
-        })}
+          ))}
+        </div>
+
+        <div className="flex flex-col gap-3 lg:gap-4 justify-center">
+          <p className="text-[10px] lg:text-xs font-black text-slate-400 uppercase tracking-wide text-right">
+            أثر العرض على السلة
+          </p>
+          <div className="p-4 lg:p-6 rounded-2xl bg-emerald-50 border-2 border-emerald-300 text-right">
+            <p className="text-xs lg:text-sm font-bold text-emerald-700 mb-1.5">
+              {tickets.offer.label}
+            </p>
+            <p className="text-3xl lg:text-5xl font-black text-emerald-600 leading-none">
+              {tickets.offer.value}
+            </p>
+          </div>
+          <div className="p-4 lg:p-6 rounded-2xl bg-white border-2 border-slate-100 text-right">
+            <p className="text-xs lg:text-sm font-bold text-slate-500 mb-1.5">
+              {tickets.normal.label}
+            </p>
+            <p className="text-3xl lg:text-5xl font-black text-slate-400 leading-none">
+              {tickets.normal.value}
+            </p>
+          </div>
+        </div>
+      </div>
+      <Takeaway text={takeaway} tone="amber" />
+    </div>
+  );
+};
+
+/* --------------------------------- Singles -------------------------------- */
+
+const SlideSingles = () => {
+  const { title, subtitle, stats, topLabel, topItems, takeaway } = CONTENT.singles;
+  const maxCount = topItems[0].count;
+
+  return (
+    <div className="presentation-slide flex flex-col">
+      <SlideHeader title={title} subtitle={subtitle} />
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 content-center min-h-0">
+        <div className="flex flex-col gap-3 lg:gap-4 justify-center">
+          {stats.map((s) => (
+            <div
+              key={s.label}
+              className="flex items-center justify-between p-4 lg:p-6 bg-white rounded-2xl border-2 border-slate-100 shadow-sm text-right"
+            >
+              <div>
+                <p className="text-xs lg:text-sm font-bold text-slate-500 mb-1.5">{s.label}</p>
+                <p className="text-lg lg:text-2xl font-black text-brand-blue leading-none">
+                  {s.current}
+                  <span className="text-xs lg:text-sm font-bold text-slate-400 mr-2">
+                    (يونيو: {s.prev})
+                  </span>
+                </p>
+              </div>
+              <DeltaBadge delta={s.delta} good={true} />
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-col gap-2.5 lg:gap-3 justify-center">
+          <p className="text-[10px] lg:text-xs font-black text-slate-400 uppercase tracking-wide text-right">
+            {topLabel}
+          </p>
+          {topItems.map((item) => (
+            <div
+              key={item.name}
+              className="flex items-center gap-3 p-3 lg:p-4 bg-white rounded-xl border border-slate-100 shadow-sm text-right"
+            >
+              <span className="flex-1 text-xs lg:text-sm font-black text-brand-blue">
+                {item.name}
+              </span>
+              <div className="w-28 lg:w-36 h-2.5 rounded-full bg-slate-100 overflow-hidden shrink-0">
+                <div
+                  className="h-full rounded-full bg-gradient-to-l from-brand-orange to-brand-blue"
+                  style={{ width: `${(item.count / maxCount) * 100}%` }}
+                />
+              </div>
+              <span className="w-9 text-sm lg:text-base font-black text-slate-500 text-left shrink-0">
+                {item.count}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Takeaway text={takeaway} tone="amber" />
+    </div>
+  );
+};
+
+/* --------------------------------- Winners -------------------------------- */
+
+const SlideWinners = () => {
+  const { title, subtitle, max, items, takeaway } = CONTENT.winners;
+
+  return (
+    <div className="presentation-slide flex flex-col">
+      <SlideHeader title={title} subtitle={subtitle} />
+      <div className="flex-1 flex flex-col gap-2 lg:gap-3 justify-center min-h-0">
+        {items.map((item) => (
+          <div
+            key={item.name}
+            className="flex items-center gap-3 lg:gap-4 px-3 py-2 lg:p-4 bg-white rounded-xl border border-slate-100 shadow-sm text-right"
+          >
+            <span className="w-48 lg:w-80 text-[11px] lg:text-base font-black text-brand-blue leading-tight shrink-0">
+              {item.name}
+            </span>
+            <div className="flex-1 h-2.5 lg:h-4 rounded-full bg-slate-100 overflow-hidden">
+              <div
+                className="h-full rounded-full bg-gradient-to-l from-emerald-400 to-emerald-600"
+                style={{ width: `${(item.current / max) * 100}%` }}
+              />
+            </div>
+            <div className="w-24 lg:w-32 flex flex-col items-start shrink-0 leading-tight">
+              <span className="text-[9px] lg:text-xs font-bold text-slate-400">
+                يونيو: {item.prev}
+              </span>
+              <span className="text-[11px] lg:text-base font-black text-brand-blue">
+                {fmt(item.current)} TL
+              </span>
+            </div>
+            <div className="w-20 lg:w-28 flex justify-start shrink-0">
+              <DeltaBadge delta={item.delta} good={true} />
+            </div>
+          </div>
+        ))}
       </div>
       <Takeaway text={takeaway} tone="blue" />
     </div>
   );
 };
 
+/* -------------------------------- New items ------------------------------- */
+
+const SlideNewItems = () => {
+  const { title, subtitle, impact, items, more, takeaway } = CONTENT.newItems;
+
+  return (
+    <div className="presentation-slide flex flex-col">
+      <SlideHeader title={title} subtitle={subtitle} />
+      <div className="flex-1 flex flex-col gap-4 lg:gap-5 justify-center min-h-0">
+        <div className="flex items-center gap-4 lg:gap-5 p-4 lg:p-6 bg-brand-blue text-white rounded-2xl shadow-lg shadow-brand-blue/20 text-right">
+          <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center shrink-0">
+            <Rocket size={26} strokeWidth={2.25} />
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs lg:text-sm font-bold text-white/80 mb-0.5">{impact.label}</p>
+            <p className="text-xl lg:text-3xl font-black leading-tight">
+              {impact.value}
+              <span className="text-sm lg:text-lg font-black text-amber-300 mr-3">
+                {impact.share}
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-4">
+          {items.map((item) => (
+            <div
+              key={item.name}
+              className="flex flex-col p-3.5 lg:p-5 bg-white rounded-2xl border-2 border-slate-100 shadow-sm text-right"
+            >
+              <span className="self-start px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[9px] lg:text-[11px] font-black mb-2">
+                جديد
+              </span>
+              <p className="flex-1 text-xs lg:text-base font-black text-brand-blue leading-snug mb-1.5">
+                {item.name}
+              </p>
+              <p className="text-base lg:text-xl font-black text-emerald-600">
+                {item.value}
+                <span className="text-[10px] lg:text-xs font-bold text-slate-400 mr-1">TL</span>
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-[10px] lg:text-sm font-bold text-slate-400 text-right">{more}</p>
+      </div>
+      <Takeaway text={takeaway} tone="amber" />
+    </div>
+  );
+};
+
+/* -------------------------------- Decliners ------------------------------- */
+
+const SlideDecliners = () => {
+  const { title, subtitle, items, readings } = CONTENT.decliners;
+
+  return (
+    <div className="presentation-slide flex flex-col">
+      <SlideHeader title={title} subtitle={subtitle} />
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6 content-center min-h-0">
+        <div className="md:col-span-3 flex flex-col gap-2 lg:gap-3 justify-center">
+          {items.map((item) => (
+            <div
+              key={item.name}
+              className="flex items-center gap-3 px-3 py-2 lg:p-4 bg-white rounded-xl border border-slate-100 shadow-sm text-right"
+            >
+              <span className="flex-1 text-[11px] lg:text-base font-black text-brand-blue leading-tight">
+                {item.name}
+              </span>
+              <span className="w-16 lg:w-24 text-[10px] lg:text-sm font-bold text-slate-400 text-left shrink-0">
+                {item.prev}
+              </span>
+              <ArrowLeft size={12} className="text-slate-300 shrink-0" strokeWidth={3} />
+              <span className="w-16 lg:w-24 text-[11px] lg:text-base font-black text-slate-600 text-left shrink-0">
+                {item.current}
+              </span>
+              <div className="w-18 lg:w-24 flex justify-start shrink-0">
+                <DeltaBadge delta={item.delta} good={false} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="md:col-span-2 flex flex-col gap-3 lg:gap-4 justify-center">
+          <p className="text-[10px] lg:text-xs font-black text-slate-400 uppercase tracking-wide text-right">
+            القراءة والخطوة
+          </p>
+          {readings.map((r) => (
+            <div
+              key={r.title}
+              className={`p-4 lg:p-6 rounded-2xl border-2 text-right ${
+                r.positive
+                  ? 'bg-emerald-50 border-emerald-200'
+                  : 'bg-brand-blue/5 border-brand-blue/15'
+              }`}
+            >
+              <div className="flex items-center gap-2 lg:gap-2.5 mb-1.5 lg:mb-2">
+                {r.positive ? (
+                  <CheckCircle2 size={17} className="text-emerald-500" strokeWidth={2.5} />
+                ) : (
+                  <Target size={17} className="text-brand-blue" strokeWidth={2.5} />
+                )}
+                <p
+                  className={`text-xs lg:text-lg font-black ${
+                    r.positive ? 'text-emerald-800' : 'text-brand-blue'
+                  }`}
+                >
+                  {r.title}
+                </p>
+              </div>
+              <p
+                className={`text-[11px] lg:text-sm font-bold leading-relaxed ${
+                  r.positive ? 'text-emerald-700' : 'text-brand-blue/80'
+                }`}
+              >
+                {r.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 /* --------------------------------- Actions -------------------------------- */
 
-const ACTION_ICONS = [Building2, Croissant, BadgePercent, CalendarDays, CupSoda];
+const ACTION_ICONS = [CalendarDays, Receipt, Coffee, Store, BadgePercent];
 
 const SlideActions = () => {
   const { title, subtitle, items } = CONTENT.actions;

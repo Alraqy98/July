@@ -1,4 +1,5 @@
 node_modules/
+.analysis-venv/
 build/
 dist/
 coverage/
